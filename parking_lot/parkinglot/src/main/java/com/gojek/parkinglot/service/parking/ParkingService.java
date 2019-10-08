@@ -7,7 +7,7 @@ public interface ParkingService {
 
 	public void createParkingLot(int level, int capacity) throws ParkingException;
 
-	public void park(int level, Vehicle vehicle);
+	public void park(int level, Vehicle vehicle) throws ParkingException;
 
 	public void remove(int level, int slotNo) throws ParkingException;
 

@@ -3,7 +3,9 @@ package com.gojek.parkinglot.service.parking.car;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import com.gojek.parkinglot.constants.vehicle.VehicleType;
 import com.gojek.parkinglot.dataaccess.ParkingLotManager;
+import com.gojek.parkinglot.dataaccess.factory.ParkingLotManagerFactory;
 import com.gojek.parkinglot.exceptions.parking.ParkingException;
 import com.gojek.parkinglot.model.Vehicle;
 import com.gojek.parkinglot.model.strategy.ParkingStrategy;
@@ -18,8 +20,8 @@ public class CarParkingService implements ParkingService {
 	
 	public static class ParkingInformation {
 		
-		Integer capacity;
-		ParkingStrategy strategy;
+		public Integer capacity;
+		public ParkingStrategy strategy;
 		
 		public ParkingInformation(Integer capacity, ParkingStrategy strategy) {
 			this.capacity = capacity;
@@ -27,6 +29,7 @@ public class CarParkingService implements ParkingService {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void createParkingLot(int level, int capacity) throws ParkingException {
 		if (manager != null) {
 			throw new ParkingException("Parking Manager is already active !!");
@@ -36,13 +39,31 @@ public class CarParkingService implements ParkingService {
 
 		floorInfo.put(level, new ParkingInformation(capacity, new NearestEntryParkingStrategy()));
 		
+		this.manager = (ParkingLotManager<Vehicle>) ParkingLotManagerFactory.getManagerInstance(floorInfo, VehicleType.CAR);
 		
-
+		System.out.println("Created parking lot with car parking slots" + capacity);
 	}
 
-	public void park(int level, Vehicle vehicle) {
-		// TODO Auto-generated method stub
+	public void park(int level, Vehicle vehicle) throws ParkingException {
+		if(manager == null) {
+			throw new ParkingException("No manager to manage Parking Lot !!");
+		}
 		
+		int result = 0;
+		lock.writeLock().lock();
+		try {
+			result = manager.parkCar(level, vehicle);
+			if(result == -1) {
+				System.out.println("Parking lot full !!");
+			} else if(result == -2) {
+				System.out.println("Vehicle already parked !!");
+			} else {
+				System.out.println("Allocated Slot number: " + result);
+			}
+		} catch (Exception e) {
+			
+			throw new ParkingException("Processing error!!");
+		}
 	}
 
 	public void remove(int level, int slotNo) throws ParkingException {
