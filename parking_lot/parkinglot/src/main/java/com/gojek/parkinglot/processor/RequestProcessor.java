@@ -17,25 +17,24 @@ public class RequestProcessor {
 		
 		try {
 			String[] requestInformation = request.split(" ");
-			
-			if(requestInformation != null && requestInformation.length > 0) {
-				if(requestInformation[0].equals(Command.STATUS.getCommandString())) {
+
+			if (requestInformation != null && requestInformation.length > 0) {
+				if (requestInformation[0].equals(Command.STATUS.getCommandString())) {
 					isValid = requestInformation.length == 1;
-				}
-				else if(requestInformation[0].equals(Command.CREATE.getCommandString()) ||
-						requestInformation[0].equals(Command.LEAVE.getCommandString()) || 
-								requestInformation[0].equals(Command.FETCH_REGISTRATION_NUMBERS_BY_COLOR.getCommandString())
-								|| requestInformation[0].equals(Command.FETCH_SLOTS_BY_COLOR.getCommandString()) ||
-								requestInformation[0].equals(Command.FETCH_SLOT_FROM_REGISTRATION_NUMBER.getCommandString())) {
+				} else if (requestInformation[0].equals(Command.CREATE.getCommandString())
+						|| requestInformation[0].equals(Command.LEAVE.getCommandString())
+						|| requestInformation[0].equals(Command.FETCH_SLOTS_BY_COLOR.getCommandString())
+						|| requestInformation[0].equals(Command.FETCH_REGISTRATION_NUMBERS_BY_COLOR.getCommandString())
+						|| requestInformation[0]
+								.equals(Command.FETCH_SLOT_FROM_REGISTRATION_NUMBER.getCommandString())) {
 					isValid = requestInformation.length == 2;
-				} 
-				else if(requestInformation[0].equals(Command.PARK.getCommandString())) {
+				} else if (requestInformation[0].equals(Command.PARK.getCommandString())) {
 					isValid = requestInformation.length == 3;
 				}
 			} else {
 				isValid = false;
 			}
-			
+
 		} catch(Exception e) {
 			isValid = false;
 		}
