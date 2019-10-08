@@ -2,6 +2,7 @@ package com.gojek.parkinglot.processor;
 
 import com.gojek.parkinglot.constants.command.Command;
 import com.gojek.parkinglot.exceptions.parking.ParkingException;
+import com.gojek.parkinglot.model.car.Car;
 import com.gojek.parkinglot.service.parking.ParkingService;
 
 public class RequestProcessor {
@@ -63,16 +64,27 @@ public class RequestProcessor {
 				}
 				break;
 			case PARK:
+				parkingService.park(defaultLevel, new Car(information[1], information[2]));
 				break;
 			case LEAVE:
+				try {
+					int slot = Integer.parseInt(information[1]);
+					parkingService.remove(defaultLevel, slot);
+				} catch (Exception e) {
+					throw new ParkingException("Invalid value");
+				}
 				break;
 			case STATUS:
+				parkingService.getStatus(defaultLevel);
 				break;
 			case FETCH_REGISTRATION_NUMBERS_BY_COLOR:
+				parkingService.getRegistrationNumbersForColor(defaultLevel, information[1]);
 				break;
 			case FETCH_SLOTS_BY_COLOR:
+				parkingService.getSlotNumbersFromColor(defaultLevel, information[1]);
 				break;
 			case FETCH_SLOT_FROM_REGISTRATION_NUMBER:
+				parkingService.getSlotNumberFromRegistrationNo(defaultLevel, information[1]);
 				break;
 			default:
 				break;

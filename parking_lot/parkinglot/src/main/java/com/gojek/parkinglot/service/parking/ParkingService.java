@@ -11,9 +11,7 @@ public interface ParkingService {
 
 	public void remove(int level, int slotNo) throws ParkingException;
 
-	public void updateStatus(int level);
-
-	public void getStatus(int level);
+	public void getStatus(int level) throws ParkingException;
 
 	public void getRegistrationNumbersForColor(int level, String color) throws ParkingException;
 
