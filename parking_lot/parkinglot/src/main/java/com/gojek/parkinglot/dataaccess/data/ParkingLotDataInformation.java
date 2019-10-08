@@ -115,6 +115,7 @@ public class ParkingLotDataInformation<T extends Vehicle> {
 		return freeCarSlots.get();
 	}
 	
+	
 	public List<String> getRegNumberForColor(String color)
 	{
 		List<String> statusList = new ArrayList<String>();

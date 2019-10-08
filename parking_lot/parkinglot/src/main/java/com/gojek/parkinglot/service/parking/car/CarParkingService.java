@@ -43,7 +43,7 @@ public class CarParkingService implements ParkingService {
 		
 		this.manager = (ParkingLotManager<Vehicle>) ParkingLotManagerFactory.getManagerInstance(floorInfo, VehicleType.CAR);
 		
-		System.out.println("Created parking lot with car parking slots" + capacity);
+		System.out.println("Created parking lot with " + capacity + " slots");
 	}
 
 	public void park(int level, Vehicle vehicle) throws ParkingException {
@@ -79,9 +79,9 @@ public class CarParkingService implements ParkingService {
 		lock.writeLock().lock();
 		try {
 			if(manager.leaveCar(level, slotNo)) {
-				System.out.println("Slot number " + slotNo + "is free");
+				System.out.println("Slot number " + slotNo + " is free");
 			} else {
-				System.out.println("Slot number " + slotNo + "is occupied");
+				System.out.println("Slot number " + slotNo + " is occupied");
 			}
 		} catch (Exception e) {
 			throw new ParkingException("Error in removing vehicle!!");
@@ -111,7 +111,7 @@ public class CarParkingService implements ParkingService {
 		} catch (Exception e) {
 			throw new ParkingException("Processing error!!");
 		} finally {
-			lock.writeLock().unlock();
+			lock.readLock().unlock();
 		}
 	}
 

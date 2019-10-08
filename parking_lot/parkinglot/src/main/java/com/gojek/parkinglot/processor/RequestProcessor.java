@@ -31,6 +31,8 @@ public class RequestProcessor {
 					isValid = requestInformation.length == 2;
 				} else if (requestInformation[0].equals(Command.PARK.getCommandString())) {
 					isValid = requestInformation.length == 3;
+				} else {
+					isValid = false;
 				}
 			} else {
 				isValid = false;
