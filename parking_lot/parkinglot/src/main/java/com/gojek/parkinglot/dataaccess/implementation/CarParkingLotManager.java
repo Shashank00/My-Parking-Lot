@@ -22,6 +22,12 @@ public class CarParkingLotManager<T extends Vehicle> implements ParkingLotManage
 	@SuppressWarnings("rawtypes")
 	public static CarParkingLotManager instance = null;
 
+	private CarParkingLotManager() throws ParkingException {
+		if(instance != null) {
+			throw new ParkingException("Cannot instantiate object more than once !!");
+		}
+	}
+	
 	@SuppressWarnings("rawtypes")
 	private CarParkingLotManager(HashMap<Integer, ParkingInformation> info) throws ParkingException {
 		if(instance != null) {
@@ -37,6 +43,20 @@ public class CarParkingLotManager<T extends Vehicle> implements ParkingLotManage
 		}
 	}
 
+	
+
+	@SuppressWarnings("unchecked")
+	public static <T extends Vehicle> CarParkingLotManager<T> getInstance() throws ParkingException{
+		if (instance == null) {
+			synchronized (CarParkingLotManager.class) {
+				if (instance == null) {
+					instance = new CarParkingLotManager<T>();
+				}
+			}
+		}
+		return instance;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static <T extends Vehicle> CarParkingLotManager<T> getInstance(HashMap<Integer, ParkingInformation> info) throws ParkingException {
 		if (instance == null) {
@@ -90,9 +110,9 @@ public class CarParkingLotManager<T extends Vehicle> implements ParkingLotManage
 		for(ParkingLotDataInformation<T> inf: levelInfoMap.values()) {
 			inf.doCleanUp();
 		}
+		levelInfoMap.clear();
 		levelInfoMap = null;
 		instance = null;
-
 	}
 
 }

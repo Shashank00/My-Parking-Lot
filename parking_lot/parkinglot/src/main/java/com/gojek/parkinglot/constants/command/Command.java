@@ -6,8 +6,8 @@ public enum Command {
 	PARK("park"),
 	LEAVE("leave"),
 	STATUS("status"),
-	FETCH_REGISTRATION_NUMBERS_BY_COLOR("registration_numbers_for_cars_with_colour"),
-	FETCH_SLOTS_BY_COLOR("slot_numbers_for_cars_with_colour"),
+	FETCH_REGISTRATION_NUMBERS_BY_COLOR("registration_numbers_for_cars_with_color"),
+	FETCH_SLOTS_BY_COLOR("slot_numbers_for_cars_with_color"),
 	FETCH_SLOT_FROM_REGISTRATION_NUMBER("slot_number_for_registration_number");
 	
 	private String command;

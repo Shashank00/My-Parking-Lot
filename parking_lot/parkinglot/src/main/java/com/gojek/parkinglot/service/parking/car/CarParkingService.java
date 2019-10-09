@@ -34,7 +34,7 @@ public class CarParkingService implements ParkingService {
 	@SuppressWarnings("unchecked")
 	public void createParkingLot(int level, int capacity) throws ParkingException {
 		if (manager != null) {
-			throw new ParkingException("Parking Manager is already active !!");
+			throw new ParkingException("Parking lot already exists !!");
 		}
 
 		HashMap<Integer, ParkingInformation> floorInfo = new HashMap<Integer, ParkingInformation>();
@@ -43,12 +43,12 @@ public class CarParkingService implements ParkingService {
 		
 		this.manager = (ParkingLotManager<Vehicle>) ParkingLotManagerFactory.getManagerInstance(floorInfo, VehicleType.CAR);
 		
-		System.out.println("Created parking lot with " + capacity + " slots");
+		System.out.println("created parking lot with " + capacity + " slots");
 	}
 
 	public void park(int level, Vehicle vehicle) throws ParkingException {
 		if(manager == null) {
-			throw new ParkingException("No manager to manage Parking Lot !!");
+			throw new ParkingException("Parking lot does not exist !!");
 		}
 		
 		int result = 0;
@@ -58,9 +58,9 @@ public class CarParkingService implements ParkingService {
 			if(result == -1) {
 				System.out.println("Sorry, parking lot is full");
 			} else if(result == -2) {
-				System.out.println("Vehicle already parked!!");
+				System.out.println("Sorry, vehicle is already parked");
 			} else {
-				System.out.println("Allocated Slot number: " + result);
+				System.out.println("Allocated slot number: " + result);
 			}
 		} catch (Exception e) {
 			
@@ -73,7 +73,7 @@ public class CarParkingService implements ParkingService {
 	public void remove(int level, int slotNo) throws ParkingException {
 		
 		if(manager == null) {
-			throw new ParkingException("No manager to manage Parking Lot!!");
+			throw new ParkingException("Parking lot does not exist !!");
 		}
 		
 		lock.writeLock().lock();
@@ -94,7 +94,7 @@ public class CarParkingService implements ParkingService {
 	public void getStatus(int level) throws ParkingException {
 		
 		if(manager == null) {
-			throw new ParkingException("No manager to manage Parking Lot!!");
+			throw new ParkingException("Parking lot does not exist !!");
 		}
 		lock.readLock().lock();
 		try {
@@ -118,7 +118,7 @@ public class CarParkingService implements ParkingService {
 	public void getRegistrationNumbersForColor(int level, String color) throws ParkingException {
 		
 		if(manager == null) {
-			throw new ParkingException("No manager to manage Parking Lot!!");
+			throw new ParkingException("Parking lot does not exist !!");
 		}
 		lock.readLock().lock();
 		try
@@ -143,7 +143,7 @@ public class CarParkingService implements ParkingService {
 	public void getSlotNumbersFromColor(int level, String color) throws ParkingException {
 		
 		if(manager == null) {
-			throw new ParkingException("No manager to manage Parking Lot!!");
+			throw new ParkingException("Parking lot does not exist !!");
 		}
 		lock.readLock().lock();
 		try
@@ -170,6 +170,10 @@ public class CarParkingService implements ParkingService {
 	}
 
 	public int getSlotNumberFromRegistrationNo(int level, String registrationNo) throws ParkingException {
+		
+		if(manager == null) {
+			throw new ParkingException("Parking lot does not exist !!");
+		}
 		
 		int value = -1;
 		lock.readLock().lock();

@@ -55,6 +55,24 @@ public class ParkingLotDataInformation<T extends Vehicle> {
 		}
 	}
 	
+	private ParkingLotDataInformation() throws ParkingException {
+		if(instance != null) {
+			throw new ParkingException("Cannot instantiate more than one object for this singleton class");
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static ParkingLotDataInformation getInstance() throws ParkingException {
+		if (instance == null) {
+			synchronized (ParkingLotDataInformation.class) {
+				if (instance == null) {
+					instance = new ParkingLotDataInformation();
+				}
+			}
+		}
+		return instance;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	public static ParkingLotDataInformation getInstance(int level, ParkingInformation info) throws ParkingException {
 		if (instance == null) {
@@ -73,10 +91,15 @@ public class ParkingLotDataInformation<T extends Vehicle> {
 		if(freeCarSlots.get() == 0) {
 			return -1; 					
 		} else {
-			freeSlot = strategy.getSlot();
-			if(carSlotMap.containsKey(freeSlot)) {
-				return -2;
+			
+			// Check if vehicle already parked 
+			for(Vehicle v: carSlotMap.values()) {
+				if(Vehicle.isSameVehicle(vehicle, v)) {
+					return -2;
+				}
 			}
+			
+			freeSlot = strategy.getSlot();
 			
 			carSlotMap.put(freeSlot, vehicle);
 			freeCarSlots.decrementAndGet();
@@ -168,11 +191,12 @@ public class ParkingLotDataInformation<T extends Vehicle> {
 	
 	public void doCleanUp()
 	{
-		this.level = new AtomicInteger();
+		this.level = new AtomicInteger(0);
 		this.carSlots = new AtomicInteger();
 		this.freeCarSlots = new AtomicInteger();
 		this.strategy = null;
 		
+		carSlotMap.clear();
 		carSlotMap = null;
 		instance = null;
 	}

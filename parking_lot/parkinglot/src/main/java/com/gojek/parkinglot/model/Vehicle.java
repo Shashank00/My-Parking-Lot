@@ -47,6 +47,12 @@ public class Vehicle implements Externalizable {
 		
 	}
 
+	public static boolean isSameVehicle(Vehicle v1, Vehicle v2) {
+		if(v1.registrationNo.equalsIgnoreCase(v2.registrationNo))
+			return true;
+		return false;
+	}
+	
 	public String getRegistrationNo() {
 		return registrationNo;
 	}

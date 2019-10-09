@@ -62,7 +62,7 @@ public class RequestProcessor {
 					parkingService.createParkingLot(defaultLevel, capacity);
 					
 				} catch (Exception e) {
-					throw new ParkingException("Error in creating Parking Lot");
+					throw new ParkingException("");
 				}
 				break;
 			case PARK:

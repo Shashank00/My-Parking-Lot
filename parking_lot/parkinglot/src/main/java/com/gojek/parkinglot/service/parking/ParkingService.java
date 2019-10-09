@@ -18,5 +18,7 @@ public interface ParkingService {
 	public void getSlotNumbersFromColor(int level, String color) throws ParkingException;
 
 	public int getSlotNumberFromRegistrationNo(int level, String registrationNo) throws ParkingException;
+	
+	public void doCleanup();
 
 }

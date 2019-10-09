@@ -24,9 +24,9 @@ public class ParkingLotSimulator {
 		
 		try {
 			
-			System.out.println("----------------------------------------------------------------");
-			System.out.println("                        GOJEK PARKING LOT                       ");
-			System.out.println("----------------------------------------------------------------");
+			System.out.println("------------------------------------------------------------------");
+			System.out.println("                         GOJEK PARKING LOT                        ");
+			System.out.println("------------------------------------------------------------------");
 			
 			printUseDetails();
 			
@@ -34,7 +34,6 @@ public class ParkingLotSimulator {
 			
 				case 0: {
 					System.out.println("-- Enter 'exit' to quit execution --");
-					System.out.print("Enter input: ");
 					while(true) {
 						try {
 							reader = new BufferedReader(new InputStreamReader(System.in));
