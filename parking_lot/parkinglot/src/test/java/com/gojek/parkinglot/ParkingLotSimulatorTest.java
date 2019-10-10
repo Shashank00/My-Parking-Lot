@@ -9,11 +9,14 @@ import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
 
-import com.gojek.parkinglot.model.car.Car;
 import com.gojek.parkinglot.exceptions.parking.ParkingException;
+import com.gojek.parkinglot.model.car.Car;
 import com.gojek.parkinglot.service.parking.ParkingService;
 import com.gojek.parkinglot.service.parking.car.CarParkingService;
 
+import net.jcip.annotations.NotThreadSafe;
+
+@NotThreadSafe
 public class ParkingLotSimulatorTest {
 	private int level;
 
@@ -73,7 +76,7 @@ public class ParkingLotSimulatorTest {
 		service.createParkingLot(level, 2);
 		service.getStatus(level);
 
-		assertEquals("createdparkinglotwith2slots\nSlotNo.\tRegistrationNo.\tColor\nSorry,parkinglotisempty",
+		assertEquals("createdparkinglotwith2slots\nSlotNo.\tRegistrationNo.\tColour\nSorry,parkinglotisempty",
 				outContent.toString().trim().replace(" ", ""));
 
 		service = null;
@@ -101,11 +104,8 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("AS-01-AA-1234", "White"));
 		service.park(level, new Car("AS-01-BB-1001", "Blue"));
 
-		/*
-		 * assertEquals(
-		 * "createdparkinglotwith1slots\nAllocatedslotnumber:1\nSorry,parkinglotisfull",
-		 * outContent.toString().trim().replace(" ", ""));
-		 */
+		assertEquals("createdparkinglotwith1slots\nAllocatedslotnumber:1\nSorry,parkinglotisfull",
+				outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
 		System.setOut(null);
@@ -133,11 +133,10 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("AS-01-HH-9999", "White"));
 		service.park(level, new Car("AS-01-BB-0001", "Black"));
 		service.remove(level, 3);
-		/*
-		 * assertEquals(
-		 * "createdparkinglotwith100slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nAllocatedslotnumber:3\nSlotnumber3isfree",
-		 * outContent.toString().trim().replace(" ", ""));
-		 */
+		
+		assertEquals(
+		"createdparkinglotwith100slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nAllocatedslotnumber:3\nSlotnumber3isfree",
+		outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
 		System.setOut(null);
@@ -164,11 +163,8 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("AS-01-HH-1234", "White"));
 		service.park(level, new Car("AS-01-HH-1234", "White"));
 
-		/*
-		 * assertEquals(
-		 * "createdparkinglotwith100slots\nAllocatedslotnumber:1\nSorry,vehicleisalreadyparked",
-		 * outContent.toString().trim().replace(" ", ""));
-		 */
+		assertEquals("createdparkinglotwith100slots\nAllocatedslotnumber:1\nSorry,vehicleisalreadyparked",
+				outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
 		System.setOut(null);
@@ -195,11 +191,10 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("AS-01-HH-1234", "White"));
 		service.park(level, new Car("AS-01-HH-9999", "White"));
 		service.getStatus(level);
-		/*
-		 * assertEquals(
-		 * "createdparkinglotwith2slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nSlotNo.RegistrationNo.Color\n1AS-01-HH-1234White\n2AS-01-HH-9999White",
-		 * outContent.toString().trim().replace(" ", ""));
-		 */
+		
+		assertEquals(
+		"createdparkinglotwith2slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nSlotNo.\tRegistrationNo.\tColour\n1\t\tAS-01-HH-1234\t\tWhite\n2\t\tAS-01-HH-9999\t\tWhite",
+		outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
 		System.setOut(null);

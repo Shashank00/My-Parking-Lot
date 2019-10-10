@@ -109,12 +109,12 @@ public class ParkingLotSimulator {
 		StringBuffer buffer = new StringBuffer();
 		buffer = buffer.append("Please Enter one of the below commands. {variable} to be replaced !").append("\n\n\n");
 		buffer = buffer.append("1) create_parking_lot {capacity}").append("\n");
-		buffer = buffer.append("2) park <<car_number>> {car_color}").append("\n");
+		buffer = buffer.append("2) park <<car_number>> {car_colour}").append("\n");
 		buffer = buffer.append("3) leave {slot_number}").append("\n");
 		buffer = buffer.append("4) status").append("\n");
 
-		buffer = buffer.append("5) registration_numbers_for_cars_with_color {car_color}").append("\n");
-		buffer = buffer.append("6) slot_numbers_for_cars_with_color {car_color}").append("\n");
+		buffer = buffer.append("5) registration_numbers_for_cars_with_colour {car_color}").append("\n");
+		buffer = buffer.append("6) slot_numbers_for_cars_with_color {car_colour}").append("\n");
 		buffer = buffer.append("7) slot_number_for_registration_number {car_number}").append("\n");
 		System.out.println(buffer.toString());
 	}

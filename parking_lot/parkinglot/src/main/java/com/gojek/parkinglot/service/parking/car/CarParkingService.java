@@ -81,7 +81,7 @@ public class CarParkingService implements ParkingService {
 			if(manager.leaveCar(level, slotNo)) {
 				System.out.println("Slot number " + slotNo + " is free");
 			} else {
-				System.out.println("Slot number " + slotNo + " is occupied");
+				System.out.println("Slot number " + slotNo + " is empty");
 			}
 		} catch (Exception e) {
 			throw new ParkingException("Error in removing vehicle!!");
@@ -98,7 +98,7 @@ public class CarParkingService implements ParkingService {
 		}
 		lock.readLock().lock();
 		try {
-			System.out.println("Slot No.\tRegistration No.\tColor");
+			System.out.println("Slot No.\tRegistration No.\tColour");
 			List<String> status = manager.getStatus(level);
 			
 			if(status.size() == 0) {
@@ -193,7 +193,7 @@ public class CarParkingService implements ParkingService {
 		return value;
 	}
 	
-	public void doCleanup()
+	public synchronized void doCleanup()
 	{
 		if (manager != null)
 			manager.clean();
