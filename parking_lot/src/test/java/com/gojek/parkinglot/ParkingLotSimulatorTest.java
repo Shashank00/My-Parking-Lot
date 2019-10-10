@@ -29,7 +29,7 @@ public class ParkingLotSimulatorTest {
 		System.setOut(new PrintStream(outContent));
 
 		service.createParkingLot(level, 100);
-		assertTrue("created parking lot with 100 slots".equalsIgnoreCase(outContent.toString().trim()));
+		assertTrue("Created parking lot with 100 slots".equalsIgnoreCase(outContent.toString().trim()));
 		
 		service.doCleanup();
 		System.setOut(null);
@@ -76,7 +76,7 @@ public class ParkingLotSimulatorTest {
 		service.createParkingLot(level, 2);
 		service.getStatus(level);
 
-		assertEquals("createdparkinglotwith2slots\nSlotNo.\tRegistrationNo.\tColour\nSorry,parkinglotisempty",
+		assertEquals("Createdparkinglotwith2slots\nSlotNo.\tRegistrationNo.\tColour\nSorry,parkinglotisempty",
 				outContent.toString().trim().replace(" ", ""));
 
 		service = null;
@@ -104,7 +104,7 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("AS-01-AA-1234", "White"));
 		service.park(level, new Car("AS-01-BB-1001", "Blue"));
 
-		assertEquals("createdparkinglotwith1slots\nAllocatedslotnumber:1\nSorry,parkinglotisfull",
+		assertEquals("Createdparkinglotwith1slots\nAllocatedslotnumber:1\nSorry,parkinglotisfull",
 				outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
@@ -135,7 +135,7 @@ public class ParkingLotSimulatorTest {
 		service.remove(level, 3);
 		
 		assertEquals(
-		"createdparkinglotwith100slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nAllocatedslotnumber:3\nSlotnumber3isfree",
+		"Createdparkinglotwith100slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nAllocatedslotnumber:3\nSlotnumber3isfree",
 		outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
@@ -163,7 +163,7 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("AS-01-HH-1234", "White"));
 		service.park(level, new Car("AS-01-HH-1234", "White"));
 
-		assertEquals("createdparkinglotwith100slots\nAllocatedslotnumber:1\nSorry,vehicleisalreadyparked",
+		assertEquals("Createdparkinglotwith100slots\nAllocatedslotnumber:1\nSorry,vehicleisalreadyparked",
 				outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
@@ -193,7 +193,7 @@ public class ParkingLotSimulatorTest {
 		service.getStatus(level);
 		
 		assertEquals(
-		"createdparkinglotwith2slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nSlotNo.\tRegistrationNo.\tColour\n1\t\tAS-01-HH-1234\t\tWhite\n2\t\tAS-01-HH-9999\t\tWhite",
+		"Createdparkinglotwith2slots\nAllocatedslotnumber:1\nAllocatedslotnumber:2\nSlotNo.\tRegistrationNo.\tColour\n1\t\tAS-01-HH-1234\t\tWhite\n2\t\tAS-01-HH-9999\t\tWhite",
 		outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
@@ -222,12 +222,12 @@ public class ParkingLotSimulatorTest {
 		service.park(level, new Car("KA-01-NN-9999", "White"));
 		service.getSlotNumberFromRegistrationNo(level, "KA-01-MM-1234");
 
-		assertEquals("createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n" + "Allocatedslotnumber:2\n1",
+		assertEquals("Createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n" + "Allocatedslotnumber:2\n1",
 				outContent.toString().trim().replace(" ", ""));
 		service.getSlotNumberFromRegistrationNo(level, "KA-01-HH-1235");
 
 		assertEquals(
-				"createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n" + "Allocatedslotnumber:2\n1\nNotFound",
+				"Createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n" + "Allocatedslotnumber:2\n1\nNotFound",
 				outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();
@@ -258,11 +258,11 @@ public class ParkingLotSimulatorTest {
 		service.getRegistrationNumbersForColor(level, "White");
 
 		assertEquals(
-				"createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n"
+				"Createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n"
 						+ "Allocatedslotnumber:2\nAS-01-HH-1234,AS-01-HH-9999",
 				outContent.toString().trim().replace(" ", ""));
 		service.getRegistrationNumbersForColor(level, "Red");
-		assertEquals("createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n" + "Allocatedslotnumber:2\n"
+		assertEquals("Createdparkinglotwith100slots\n" + "Allocatedslotnumber:1\n" + "Allocatedslotnumber:2\n"
 				+ "AS-01-HH-1234,AS-01-HH-9999\nNotFound", outContent.toString().trim().replace(" ", ""));
 
 		service.doCleanup();

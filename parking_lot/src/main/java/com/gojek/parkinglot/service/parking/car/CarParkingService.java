@@ -43,7 +43,7 @@ public class CarParkingService implements ParkingService {
 		
 		this.manager = (ParkingLotManager<Vehicle>) ParkingLotManagerFactory.getManagerInstance(floorInfo, VehicleType.CAR);
 		
-		System.out.println("created parking lot with " + capacity + " slots");
+		System.out.println("Created parking lot with " + capacity + " slots");
 	}
 
 	public void park(int level, Vehicle vehicle) throws ParkingException {
